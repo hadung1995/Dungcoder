@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Them" android:id="@+id/menuthem"></item>
+    <item android:title="Xoa" android:id="@+id/menuxoa"></item>
+    <item android:title="Sua" android:id="@+id/menusua"></item>
+</menu>

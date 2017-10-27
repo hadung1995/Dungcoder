@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/textthem"
+        android:layout_width="match_parent"
+        android:textColor="@color/colorAccent"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Thêm Công Việc"
+        android:layout_height="wrap_content"
+        />
+    <EditText
+        android:layout_below="@+id/textthem"
+        android:id="@+id/editten"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/them"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"
+        android:layout_below="@+id/editten"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thêm"/>
+    <Button
+        android:id="@+id/huy"
+        android:layout_toRightOf="@+id/them"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"
+        android:layout_below="@+id/editten"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Huy"/>
+
+</RelativeLayout>

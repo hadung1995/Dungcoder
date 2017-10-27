@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">BaitapIntent</string>
+    <string-array name="list_name">
+        <item>angrybirds1</item>
+        <item>angrybirds2</item>
+        <item>angrybirds3</item>
+        <item>angrybirds4</item>
+        <item>angrybirds5</item>
+        <item>angrybirds6</item>
+        <item>angrybirds7</item>
+        <item>angrybirds8</item>
+    </string-array>
+</resources>

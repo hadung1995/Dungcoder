@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:text="Cập nhật thông tin" />
+    <EditText
+        android:id="@+id/editsua"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true" />
+    <Button
+        android:id="@+id/btnconfirm"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Xác Nhận"
+        android:layout_below="@+id/editsua"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="53dp" />
+    <Button
+        android:id="@+id/btnabort"
+        android:layout_marginLeft="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hủy bỏ"
+        android:layout_alignBaseline="@+id/btnconfirm"
+        android:layout_alignBottom="@+id/btnconfirm"
+        android:layout_toEndOf="@+id/btnconfirm"
+        android:layout_marginStart="60dp" />
+
+</RelativeLayout>

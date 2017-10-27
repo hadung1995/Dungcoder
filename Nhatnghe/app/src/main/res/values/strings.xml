@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Nhatnghe</string>
+    <string-array name="thanhpho">
+        <item>Saigon</item>
+        <item>Hue</item>
+        <item>Da nang</item>
+    </string-array>
+</resources>
