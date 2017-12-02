@@ -161,6 +161,43 @@ public class Database extends SQLiteOpenHelper {
         values.put("phone",c.phone);
         db.update("Course",values,"_id=?",new String[]{c.id+""});
     }
+    public void themclass(Class cl){
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues values=new ContentValues();
+        values.put("name",cl.name);
+        values.put("typetraining",cl.train);
+        values.put("course_id",cl.course_id);
+        db.insert("Class",null,values);
+    }
+    public ArrayList<Class> xemclass(int course_id){
+        SQLiteDatabase db=this.getReadableDatabase();
+        ArrayList<Class> arrayList=new ArrayList<>();
+        Cursor c=db.rawQuery("SELECT * FROM Class WHERE course_id=? ",new String[]{String.valueOf(course_id)});
+        if(c.moveToFirst())
+            do{
+                int class_id=c.getInt(0);
+                String class_name=c.getString(1);
+                String typetrain=c.getString(2);
+                int class_course_id=c.getInt(3);
+                arrayList.add(new Class(class_id,class_name,typetrain,class_course_id));
+            }
+            while (c.moveToNext());
+        return arrayList;
+    }
+    public void xoaClass(int id)
+    {
+        SQLiteDatabase db=this.getWritableDatabase();
+        db.delete("Class","course_id=?",new String[]{id+""});
+    }
+    public void suaClass(Class cl) {
+        //c la cong viec co id cu, noidung va thoigian la moi (can update)
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues values=new ContentValues();
+        values.put("name",cl.name);
+        values.put("typetraining",cl.train);
+        values.put("course_id",cl.course_id);
+        db.update("Class",values,"_id=?",new String[]{cl.id+""});
+    }
 
 
 

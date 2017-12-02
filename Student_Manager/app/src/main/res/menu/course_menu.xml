@@ -2,4 +2,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:title="course_add" android:id="@+id/menu_add" android:icon="@drawable/add" app:showAsAction="always"></item>
+    <item android:title="student_add" android:id="@+id/menu_student_add" android:icon="@drawable/student" app:showAsAction="always"></item>
 </menu>

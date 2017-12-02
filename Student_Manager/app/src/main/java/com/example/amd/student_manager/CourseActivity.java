@@ -1,23 +1,29 @@
 package com.example.amd.student_manager;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class CourseActivity extends AppCompatActivity {
     Database db=new Database(CourseActivity.this);
+    SpinnerAdapter spinnerAdapter;
     CourseAdapter adapter;
     ListView lv;
+     int course_id=0;
     ArrayList<Course> arrcouse=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +31,17 @@ public class CourseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_course);
         lv=(ListView)findViewById(R.id.lvcourse);
         dodulieu();
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                int c_id=0;
+                Course c=arrcouse.get(i);
+                c_id=c.id;
+                Intent intent=new Intent(CourseActivity.this,ClassActivity.class);
+                intent.putExtra("c_id",c_id);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -39,7 +56,46 @@ public class CourseActivity extends AppCompatActivity {
         if(item.getItemId()==R.id.menu_add){
             showdialog();
         }
+        if(item.getItemId()==R.id.menu_student_add){
+            showdialogclass();
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showdialogclass() {
+        Dialog dialog=new Dialog(this);
+        dialog.setContentView(R.layout.class_add);
+        final EditText class_name=(EditText)dialog.findViewById(R.id.class_name);
+        final EditText class_train=(EditText)dialog.findViewById(R.id.class_train);
+        Spinner class_c_id=(Spinner)dialog.findViewById(R.id.spinner);
+        final Button btn=(Button)dialog.findViewById(R.id.class_add_confirm) ;
+        arrcouse=db.xemCourse();
+        spinnerAdapter= new SpinnerAdapter(CourseActivity.this,arrcouse);
+        class_c_id.setAdapter(spinnerAdapter);
+        class_c_id.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+              Course d = arrcouse.get(i);
+                course_id=d.id;
+                btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int id=course_id;
+                        String name=class_name.getText().toString();
+                        String train=class_train.getText().toString();
+                        db.themclass(new Class(name,train,id));
+                        Toast.makeText(CourseActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+       dialog.show();
     }
 
     public void showdialog(){
@@ -87,4 +143,5 @@ public class CourseActivity extends AppCompatActivity {
         });
         dialog.show();
     }
+
 }
