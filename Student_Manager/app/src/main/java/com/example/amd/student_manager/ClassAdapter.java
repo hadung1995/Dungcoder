@@ -24,6 +24,7 @@ public class ClassAdapter extends BaseAdapter {
         this.arrayList = arrayList;
     }
 
+
     @Override
     public int getCount() {
         return arrayList.size();
@@ -31,17 +32,19 @@ public class ClassAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return arrayList.get(i).id;
     }
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return i;
     }
+
     public class Viewholder{
         ImageView imgsua,imgxoa;
         TextView tv_class_id,tv_class_name,tv_class_train,tv_class_course_id;
     }
+
 
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {

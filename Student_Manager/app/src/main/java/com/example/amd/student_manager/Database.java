@@ -198,6 +198,53 @@ public class Database extends SQLiteOpenHelper {
         values.put("course_id",cl.course_id);
         db.update("Class",values,"_id=?",new String[]{cl.id+""});
     }
+    public void themstudent(Student std){
+        SQLiteDatabase db=this.getWritableDatabase();
+        String sql="INSERT INTO Student VALUES(null,?,?,?,?,?)";
+        SQLiteStatement sqLiteStatement = db.compileStatement(sql);
+        sqLiteStatement.clearBindings();
+        sqLiteStatement.bindString(1,std.name);
+        sqLiteStatement.bindString(2,std.dob);
+        sqLiteStatement.bindString(3,std.sex);
+        sqLiteStatement.bindString(4, String.valueOf(std.class_id));
+        sqLiteStatement.bindBlob(5,std.picture);
+        sqLiteStatement.executeInsert();
+
+    }
+    public ArrayList<Student> xemStudent(int class_id){
+        SQLiteDatabase db=this.getReadableDatabase();
+        ArrayList<Student> arrayList=new ArrayList<>();
+        Cursor c=db.rawQuery("SELECT * FROM Student WHERE class_id=?",new String[]{class_id+""});
+        if(c.moveToFirst())
+            do{
+                int _id=c.getInt(0);
+                String name=c.getString(1);
+                String dob=c.getString(2);
+                String sex=c.getString(3);
+                int classid=c.getInt(4);
+                byte[] picture=c.getBlob(5);
+                arrayList.add(new Student(_id,name,dob,sex,classid,picture));
+            }
+            while (c.moveToNext());
+        return arrayList;
+    }
+    public void suaStudent(Student std){
+        SQLiteDatabase db=this.getWritableDatabase();
+        String sql="UPDATE Student SET name=?, dob=?, sex=?, class_id=?, picture=? WHERE _id=?";
+        SQLiteStatement sqLiteStatement=db.compileStatement(sql);
+        sqLiteStatement.clearBindings();
+        sqLiteStatement.bindString(1,std.name);
+        sqLiteStatement.bindString(2,std.dob);
+        sqLiteStatement.bindString(3,std.sex);
+        sqLiteStatement.bindString(4, String.valueOf(std.class_id));
+        sqLiteStatement.bindBlob(5,std.picture);
+        sqLiteStatement.bindString(6, String.valueOf(std.id));
+        sqLiteStatement.execute();
+    }
+    public void xoaStudent(int id){
+        SQLiteDatabase db=this.getWritableDatabase();
+        db.delete("Student","_id=?",new String[]{id+""});
+    }
 
 
 

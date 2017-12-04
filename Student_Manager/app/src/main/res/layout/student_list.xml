@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/student_picture_list"
+        android:layout_width="wrap_content"
+        android:src="@mipmap/ic_launcher"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:id="@+id/student_id_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="TextView"
+            android:visibility="gone" />
+
+
+        <TextView
+            android:id="@+id/student_name_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/student_dob_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/student_class"
+            android:layout_toEndOf="@+id/student_id_list"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/student_class_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+
+            android:layout_below="@+id/student_name_list"
+            android:layout_toEndOf="@+id/student_name_list" />
+        <TextView
+            android:id="@+id/student_sex_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+
+            android:layout_below="@+id/student_name_list"
+            android:layout_toEndOf="@+id/student_name_list" />
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/update_student"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/update"/>
+    <ImageView
+        android:id="@+id/delete_student"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/delete"/>
+
+
+
+</LinearLayout>

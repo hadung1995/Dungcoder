@@ -7,20 +7,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 /**
- * Created by AMD on 12/2/2017.
+ * Created by AMD on 12/3/2017.
  */
 
-public class SpinnerAdapter extends BaseAdapter {
+public class SpinnerClassAdapter extends BaseAdapter {
     Context context;
-    ArrayList<Course> arrayList;
+    ArrayList<Class> arrayList;
 
-    public SpinnerAdapter(Context context, ArrayList<Course> arrayList) {
+    public SpinnerClassAdapter(Context context, ArrayList<Class> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }
@@ -32,33 +31,33 @@ public class SpinnerAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        return arrayList.get(i);
+        return null;
     }
-
 
     @Override
     public long getItemId(int i) {
-        return i;
+        return 0;
     }
     public class Viewholder{
-        TextView tv_course_id,tv_course_name,tv_course_phone;
+
+        TextView tv_class;
     }
 
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
-        Viewholder holder;
+      Viewholder holder;
         LayoutInflater inf= ((Activity)context).getLayoutInflater();
         if(view==null){
             holder =new Viewholder();
-            view=inf.inflate(R.layout.spinner_list_course,null);
-            holder.tv_course_name=(TextView)view.findViewById(R.id.textView2);
+            view=inf.inflate(R.layout.spinner_list_class,null);
+            holder.tv_class=(TextView)view.findViewById(R.id.textView8);
             view.setTag(holder);
         }
         else{
             holder= (Viewholder) view.getTag();
         }
-        Course c=arrayList.get(i);
-        holder.tv_course_name.setText("Năm học "+c.name);
+        Class cl=arrayList.get(i);
+        holder.tv_class.setText("Lớp"+cl.name);
         return view;
     }
 }

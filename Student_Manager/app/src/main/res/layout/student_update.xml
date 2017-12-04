@@ -11,7 +11,7 @@
         android:layout_below="@+id/textView3"
         android:layout_alignParentStart="true">
         <EditText
-            android:id="@+id/student_name"
+            android:id="@+id/student_name_up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView3"
@@ -32,7 +32,7 @@
         android:layout_alignParentStart="true">
 
         <EditText
-            android:id="@+id/student_dob"
+            android:id="@+id/student_dob_up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="55dp"
@@ -50,63 +50,63 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
         android:textSize="30sp"
-        android:text="THÊM HỌC SINH"
+        android:text="CẬP NHẬT HỌC SINH"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:id="@+id/student_confirm"
+        android:id="@+id/student_confirm_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Xác nhận"
         android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@+id/checkBox2" />
+        android:layout_centerHorizontal="true" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/checkBox_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Male"
-        android:layout_above="@+id/student_confirm"
-        android:layout_alignStart="@+id/textView3"
-        android:layout_marginBottom="17dp" />
+        android:layout_marginEnd="14dp"
+        android:layout_alignBaseline="@+id/checkBox2_up"
+        android:layout_alignBottom="@+id/checkBox2_up"
+        android:layout_toStartOf="@+id/student_confirm_up" />
 
     <CheckBox
-        android:id="@+id/checkBox2"
+        android:id="@+id/checkBox2_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Female"
-        android:layout_marginEnd="51dp"
-        android:layout_alignBaseline="@+id/checkBox"
-        android:layout_alignBottom="@+id/checkBox"
-        android:layout_alignEnd="@+id/textInputLayout" />
+        android:layout_above="@+id/student_confirm_up"
+        android:layout_toEndOf="@+id/imageView456"
+        android:layout_marginBottom="100dp" />
 
     <Spinner
-        android:id="@+id/spinner_student_add"
+        android:id="@+id/spinner_student_up"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
-        android:layout_above="@+id/checkBox2"
+        android:layout_marginBottom="300dp"
+        android:layout_above="@+id/checkBox2_up"
         android:layout_alignEnd="@+id/textInputLayout" />
 
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/imageView456"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="400dp"
         android:layout_marginLeft="200dp"
         app:srcCompat="@drawable/camera"
-        android:layout_above="@+id/spinner"
-        android:layout_toStartOf="@+id/course_confirm" />
+        android:layout_alignBottom="@+id/checkBox2_up"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="150dp" />
 
     <Button
-        android:id="@+id/button113"
+        android:id="@+id/button1134"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/checkBox"
+        android:layout_above="@+id/checkBox_up"
         android:layout_alignEnd="@+id/textView3"
-        android:layout_marginBottom="400dp"
+        android:layout_marginBottom="320dp"
         android:layout_marginRight="10dp"
         android:text="Button" />
 
