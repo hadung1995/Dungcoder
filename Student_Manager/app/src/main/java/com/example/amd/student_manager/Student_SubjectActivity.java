@@ -22,6 +22,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -35,16 +36,16 @@ public class Student_SubjectActivity extends AppCompatActivity {
     int class_id;
     int course_id;
     ViewPager viewpager;
-    StudentAdapter adapter1;
+
     ArrayList<Student> arrayList1=new ArrayList<>();
-//    TabLayout tablayout;
+    //    TabLayout tablayout;
     ImageView iv,iv1;
     FragmentAdapter adapter;
     String[] title = {"Học Sinh", "Môn Học"};
     Database db=new Database(Student_SubjectActivity.this);
     ArrayList<Class> arrayList=new ArrayList<>();
     SpinnerClassAdapter spinneradapter;
-    Button btn;
+    Button btn,btn1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +53,7 @@ public class Student_SubjectActivity extends AppCompatActivity {
         viewpager = (ViewPager) findViewById(R.id.viewpager);
 //        tablayout = (TabLayout) findViewById(R.id.sliding_tabs);
         btn=(Button)findViewById(R.id.button2);
+        btn1=(Button)findViewById(R.id.button3);
         class_id=getIntent().getExtras().getInt("class_id");
         course_id=getIntent().getExtras().getInt("course_id");
         adapter= new FragmentAdapter(getSupportFragmentManager(),Student_SubjectActivity.this,class_id,course_id);
@@ -61,82 +63,93 @@ public class Student_SubjectActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 showdialogstudent();
+
             }
         });
 //        class_id=getIntent().getExtras().getInt("class_id");
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog_subject_add();
+            }
+        });
     }
 
 
+
+
+
     private void showdialogstudent() {
-            Dialog dialog=new Dialog(this);
-            dialog.setContentView(R.layout.student_add);
-            final EditText etdob=(EditText)dialog.findViewById(R.id.student_dob);
-            Button b=(Button)dialog.findViewById(R.id.button113);
-            Spinner spinner=(Spinner)dialog.findViewById(R.id.spinner_student_add);
-            final EditText et_name=(EditText)dialog.findViewById(R.id.student_name);
-            final EditText et_dob=(EditText)dialog.findViewById(R.id.student_dob);
-            iv=(ImageView)dialog.findViewById(R.id.imageView4);
-            final Button btn=(Button)dialog.findViewById(R.id.student_confirm);
-            final CheckBox cbmale=(CheckBox)dialog.findViewById(R.id.checkBox);
-            final CheckBox cbfemale=(CheckBox)dialog.findViewById(R.id.checkBox2);
-            iv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent pick=new Intent(Intent.ACTION_GET_CONTENT);
-                    pick.setType("image/*");
-                    Intent pho=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    Intent chosser=Intent.createChooser(pick, "chon");
-                    chosser.putExtra(Intent.EXTRA_INITIAL_INTENTS,new Intent[]{pho});
-                    startActivityForResult(chosser, 999);
-                }
-            });
-            b.setOnClickListener(new View.OnClickListener() {
+        Dialog dialog=new Dialog(this);
+        dialog.setContentView(R.layout.student_add);
+        final EditText etdob=(EditText)dialog.findViewById(R.id.student_dob);
+        ImageButton img_calendar_add=(ImageButton)dialog.findViewById(R.id.imageButton);
+        Spinner spinner=(Spinner)dialog.findViewById(R.id.spinner_student_add);
+        final EditText et_name=(EditText)dialog.findViewById(R.id.student_name);
+        final EditText et_dob=(EditText)dialog.findViewById(R.id.student_dob);
+        iv=(ImageView)dialog.findViewById(R.id.imageView4);
+        final Button btn=(Button)dialog.findViewById(R.id.student_confirm);
+        final CheckBox cbmale=(CheckBox)dialog.findViewById(R.id.checkBox);
+        final CheckBox cbfemale=(CheckBox)dialog.findViewById(R.id.checkBox2);
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent pick=new Intent(Intent.ACTION_GET_CONTENT);
+                pick.setType("image/*");
+                Intent pho=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                Intent chosser=Intent.createChooser(pick, "chon");
+                chosser.putExtra(Intent.EXTRA_INITIAL_INTENTS,new Intent[]{pho});
+                startActivityForResult(chosser, 999);
+            }
+        });
+        img_calendar_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 xulyngaythangnam(etdob);
             }
         });
-            arrayList=db.xemclass(course_id);
-            spinneradapter=new SpinnerClassAdapter(Student_SubjectActivity.this,arrayList);
-            spinner.setAdapter(spinneradapter);
-            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    Class cl=arrayList.get(i);
-                    class_id=cl.id;
-                    btn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            int id=class_id;
-                            String name=et_name.getText().toString();
-                            String dob=et_dob.getText().toString();
-                            //sex
-                            String sex="";
-                            if(cbmale.isChecked()){
-                                sex+=cbmale.getText();
-                            }
-                            if(cbfemale.isChecked()){
-                                sex+=cbfemale.getText();
-                            }
-                            BitmapDrawable bitmapDrawable= (BitmapDrawable) iv.getDrawable();
-                            Bitmap bitmap=bitmapDrawable.getBitmap();
-                            ByteArrayOutputStream byteArrays = new ByteArrayOutputStream();
-                            bitmap.compress(Bitmap.CompressFormat.PNG,100,byteArrays);
-                            byte[] hinhanh=byteArrays.toByteArray();
-                            db.themstudent(new Student(name,dob,sex,id,hinhanh));
-                            Toast.makeText(Student_SubjectActivity.this, "Thêm thành công đề nghĩ kiểm tra database ", Toast.LENGTH_SHORT).show();
-                            //
+        arrayList=db.xemclass(course_id);
+        spinneradapter=new SpinnerClassAdapter(Student_SubjectActivity.this,arrayList);
+        spinner.setAdapter(spinneradapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Class cl=arrayList.get(i);
+                class_id=cl.id;
+                btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int id=class_id;
+                        String name=et_name.getText().toString();
+                        String dob=et_dob.getText().toString();
+                        //sex
+                        String sex="";
+                        if(cbmale.isChecked()){
+                            sex+=cbmale.getText();
                         }
-                    });
-                }
+                        if(cbfemale.isChecked()){
+                            sex+=cbfemale.getText();
+                        }
+                        BitmapDrawable bitmapDrawable= (BitmapDrawable) iv.getDrawable();
+                        Bitmap bitmap=bitmapDrawable.getBitmap();
+                        ByteArrayOutputStream byteArrays = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.PNG,100,byteArrays);
+                        byte[] hinhanh=byteArrays.toByteArray();
+                        db.themstudent(new Student(name,dob,sex,id,hinhanh));
+                        finish();
+                        startActivity(getIntent());
+                        //
+                    }
+                });
+            }
 
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
-                }
-            });
+            }
+        });
 
-            dialog.show();
+        dialog.show();
 //            onActivityResult(requestcode,RESULT_OK,getIntent(),img_hinh);
     }
     public void xulyngaythangnam(final EditText et) {
@@ -196,9 +209,9 @@ public class Student_SubjectActivity extends AppCompatActivity {
         final CheckBox cbfemale=(CheckBox)dialog.findViewById(R.id.checkBox2_up);
         final EditText etname=(EditText)dialog.findViewById(R.id.student_name_up);
         final EditText etdob=(EditText)dialog.findViewById(R.id.student_dob_up);
-        Button btn_dob=(Button)dialog.findViewById(R.id.button1134);
         final Button btn_confirm=(Button)dialog.findViewById(R.id.student_confirm_up);
         Spinner spinner=(Spinner)dialog.findViewById(R.id.spinner_student_up);
+        ImageButton img_calendar=(ImageButton)dialog.findViewById(R.id.img_calendar_student);
         etname.setText(std.name);
         etdob.setText(std.dob);
         String sex=std.sex;
@@ -240,7 +253,7 @@ public class Student_SubjectActivity extends AppCompatActivity {
                 startActivityForResult(chosser, 777);
             }
         });
-        btn_dob.setOnClickListener(new View.OnClickListener() {
+        img_calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 xulyngaythangnam(etdob);
@@ -270,15 +283,12 @@ public class Student_SubjectActivity extends AppCompatActivity {
                         }
                         std.sex=sex;
                         //
-
                         //name
                         std.name=etname.getText().toString();
                         //name
-
                         //dob
                         std.dob=etdob.getText().toString();
                         //dob
-
                         //hinhanh
                         BitmapDrawable bitmapDrawable= (BitmapDrawable) iv1.getDrawable();
                         Bitmap bitmap=bitmapDrawable.getBitmap();
@@ -288,9 +298,81 @@ public class Student_SubjectActivity extends AppCompatActivity {
                         std.picture=hinhanh;
                         //
                         db.suaStudent(std);
-                        Toast.makeText(Student_SubjectActivity.this, "Sua thanh cong", Toast.LENGTH_SHORT).show();
-                       dialog.dismiss();
+                        dialog.dismiss();
+                        finish();
+                        startActivity(getIntent());
 
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        dialog.show();
+    }
+    public void dialog_subject_add(){
+        final Dialog dialog =new Dialog(this);
+        dialog.setContentView(R.layout.subject_add_dialog);
+        final EditText et_sub=(EditText)dialog.findViewById(R.id.subject_name);
+        final Button bt_sub=(Button)dialog.findViewById(R.id.subject_confirm) ;
+        Spinner spinner=(Spinner)dialog.findViewById(R.id.spinner_sub_add);
+        arrayList=db.xemclass(course_id);
+        spinneradapter=new SpinnerClassAdapter(Student_SubjectActivity.this,arrayList);
+        spinner.setAdapter(spinneradapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Class cl=arrayList.get(i);
+                class_id=cl.id;
+                bt_sub.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int id=class_id;
+                        String subject_name=et_sub.getText().toString();
+                        db.themsubject(new Subject(id,subject_name));
+                        Toast.makeText(Student_SubjectActivity.this, "Thanh Cong", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                        finish();
+                        startActivity(getIntent());
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        dialog.show();
+    }
+    public void sua_subject(final Subject subject){
+        final Dialog dialog =new Dialog(this);
+        dialog.setContentView(R.layout.dia_log_sua_subject);
+        final EditText et_sub=(EditText)dialog.findViewById(R.id.subject_name_up);
+        et_sub.setText(subject.s_name);
+        final Button bt_sub=(Button)dialog.findViewById(R.id.subject_confirm_up) ;
+        Spinner spinner=(Spinner)dialog.findViewById(R.id.spinner_sub_up);
+        arrayList=db.xemclass(course_id);
+        spinneradapter=new SpinnerClassAdapter(Student_SubjectActivity.this,arrayList);
+        spinner.setAdapter(spinneradapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Class cl=arrayList.get(i);
+                class_id=cl.id;
+                bt_sub.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        subject.class_id=class_id;
+                        subject.s_name=et_sub.getText().toString();
+                        db.suaSubject(subject);
+                        Toast.makeText(Student_SubjectActivity.this, "Thanh Cong", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                        finish();
+                        startActivity(getIntent());
                     }
                 });
             }

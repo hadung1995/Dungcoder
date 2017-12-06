@@ -78,6 +78,7 @@ public class CourseAdapter extends BaseAdapter {
                 Course c=arrayList.get(i);
                 ((CourseActivity) context).suadialog(c);
 
+
             }
         });
         return view;

@@ -37,7 +37,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="55dp"
             android:ems="10"
-            android:drawableLeft="@drawable/add"
             android:hint="Ngày sinh"
             android:inputType="textPersonName"
             android:textColor="#cccccc"
@@ -85,30 +84,29 @@
         android:id="@+id/spinner_student_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="80dp"
         android:layout_above="@+id/checkBox2"
         android:layout_alignEnd="@+id/textInputLayout" />
 
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="400dp"
-        android:layout_marginLeft="200dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="150dp"
         app:srcCompat="@drawable/camera"
-        android:layout_above="@+id/spinner"
-        android:layout_toStartOf="@+id/course_confirm" />
+        android:layout_above="@+id/checkBox"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="23dp" />
 
-    <Button
-        android:id="@+id/button113"
+    <ImageButton
+        android:id="@+id/imageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/checkBox"
-        android:layout_alignEnd="@+id/textView3"
-        android:layout_marginBottom="400dp"
-        android:layout_marginRight="10dp"
-        android:text="Button" />
+        android:layout_marginTop="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/textInputLayout"
+        app:srcCompat="@drawable/calendar" />
 
 
 </RelativeLayout>

@@ -184,10 +184,10 @@ public class Database extends SQLiteOpenHelper {
             while (c.moveToNext());
         return arrayList;
     }
-    public void xoaClass(int id)
+    public void xoaClass(int id,int id2)
     {
         SQLiteDatabase db=this.getWritableDatabase();
-        db.delete("Class","course_id=?",new String[]{id+""});
+        db.delete("Class","course_id=? and _id=?",new String[]{id+"",""+id2});
     }
     public void suaClass(Class cl) {
         //c la cong viec co id cu, noidung va thoigian la moi (can update)
@@ -245,6 +245,40 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db=this.getWritableDatabase();
         db.delete("Student","_id=?",new String[]{id+""});
     }
+    public void themsubject(Subject s){
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues values=new ContentValues();
+        values.put("name",s.s_name);
+        values.put("class_id",s.class_id);
+        db.insert("Subject",null,values);
+    }
+    public ArrayList<Subject> xemsubject(int class_id){
+        SQLiteDatabase db=this.getReadableDatabase();
+        ArrayList<Subject> arrayList=new ArrayList<>();
+        Cursor c=db.rawQuery("SELECT * FROM Subject where class_id=?",new String[]{""+class_id});
+        if(c.moveToFirst())
+            do{
+                int id=c.getInt(0);
+                int c_id=c.getInt(1);
+                String name=c.getString(2);
+                arrayList.add(new Subject(id,c_id,name));
+            }
+            while (c.moveToNext());
+        return arrayList;
+    }
+    public void xoasubject(int id){
+        SQLiteDatabase db=this.getWritableDatabase();
+        db.delete("Subject","_id=?",new String[]{id+""});
+    }
+    public void suaSubject(Subject s) {
+        //c la cong viec co id cu, noidung va thoigian la moi (can update)
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues values=new ContentValues();
+        values.put("name",s.s_name);
+        values.put("class_id",s.class_id);
+        db.update("Subject",values,"_id=?",new String[]{s.s_id+""});
+    }
+
 
 
 

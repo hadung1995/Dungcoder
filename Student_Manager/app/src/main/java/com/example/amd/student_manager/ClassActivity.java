@@ -34,6 +34,7 @@ public class ClassActivity extends AppCompatActivity {
     int class_id;
     int course_id;
     Button btn;
+    Spinner class_c_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,14 +76,12 @@ public class ClassActivity extends AppCompatActivity {
         class_name.setText(cl.name);
         final EditText class_train=(EditText)dialog.findViewById(R.id.class_train_up);
         class_train.setText(cl.train);
-        final Spinner class_c_id=(Spinner)dialog.findViewById(R.id.spinner_up);
+         class_c_id=(Spinner)dialog.findViewById(R.id.spinner_up);
         final Button btn=(Button)dialog.findViewById(R.id.class_confirm_up) ;
         //hiện thông tin của spinner
         arrcourse=db.xemCourse();
         spinneradapter= new SpinnerAdapter(ClassActivity.this,arrcourse);
         class_c_id.setAdapter(spinneradapter);
-
-
 //        class_c_id.setSelection(spinneradapter.getPosition("Dung"));
 //        class_c_id.setAdapter(spinneradapter.get);
 

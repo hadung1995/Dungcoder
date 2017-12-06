@@ -84,6 +84,7 @@ public class StudentAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     ((Student_SubjectActivity) context).db.xoaStudent(std.id);
+                    ((Student_SubjectActivity) context).finish();
                 }
             });
         return view;

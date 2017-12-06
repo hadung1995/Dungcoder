@@ -72,7 +72,7 @@ public class ClassAdapter extends BaseAdapter {
         holder.imgxoa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((ClassActivity) context).db.xoaClass(cl.course_id);
+                ((ClassActivity) context).db.xoaClass(cl.course_id,cl.id);
                 ((ClassActivity) context).dodulieu();
             }
         });
@@ -80,6 +80,7 @@ public class ClassAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 ((ClassActivity)context).dialogsua(cl);
+
             }
         });
         return view;

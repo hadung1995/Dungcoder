@@ -34,10 +34,13 @@ public class StudentFragment extends Fragment {
         lv=(ListView)view.findViewById(R.id.list_view_std) ;
         db=new Database(getActivity());
         id=getArguments().getInt("so1");
+        dodulieu();
+        return view;
+    }
+    public void dodulieu(){
         arrayList=db.xemStudent(id);
         adapter=new StudentAdapter(getActivity(),arrayList);
         lv.setAdapter(adapter);
-        return view;
     }
 
 
