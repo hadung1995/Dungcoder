@@ -130,11 +130,13 @@ public class Student_SubjectActivity extends AppCompatActivity {
                         if(cbfemale.isChecked()){
                             sex+=cbfemale.getText();
                         }
+                        //
                         BitmapDrawable bitmapDrawable= (BitmapDrawable) iv.getDrawable();
                         Bitmap bitmap=bitmapDrawable.getBitmap();
                         ByteArrayOutputStream byteArrays = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.PNG,100,byteArrays);
                         byte[] hinhanh=byteArrays.toByteArray();
+                        //
                         db.themstudent(new Student(name,dob,sex,id,hinhanh));
                         finish();
                         startActivity(getIntent());

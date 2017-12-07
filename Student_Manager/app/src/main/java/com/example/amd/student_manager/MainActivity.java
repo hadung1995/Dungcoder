@@ -13,7 +13,7 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity {
     EditText username,pass;
     Button btn;
-    Database db=new Database(MainActivity.this);
+    Database db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         username=(EditText)findViewById(R.id.username);
         pass=(EditText)findViewById(R.id.pass);
         btn=(Button)findViewById(R.id.button);
+        db=new Database(MainActivity.this);
         try {
             db.createDataBase();
             db.close();

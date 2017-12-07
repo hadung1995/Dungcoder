@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,13 +19,16 @@ import java.util.ArrayList;
  * Created by AMD on 12/3/2017.
  */
 
-public class StudentAdapter extends BaseAdapter {
+public class StudentAdapter extends BaseAdapter implements Filterable {
     Context context;
     ArrayList<Student> arrayList;
+    ArrayList<Student> arrayListfilter;
+    private ValueFilter valueFilter;
 
     public StudentAdapter(Context context, ArrayList<Student> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
+        this.arrayListfilter=arrayList;
     }
 
     @Override
@@ -40,6 +45,16 @@ public class StudentAdapter extends BaseAdapter {
     public long getItemId(int i) {
         return 0;
     }
+
+    @Override
+    public Filter getFilter() {
+        if(valueFilter==null) {
+
+            valueFilter=new ValueFilter();
+        }
+        return valueFilter;
+    }
+
     public class Viewholder{
         ImageView imgsua,imgxoa,imghinh;
         TextView tv_student_id,tv_student_name,tv_student_class_id,tv_student_sex,tv_student_dob;
@@ -88,5 +103,40 @@ public class StudentAdapter extends BaseAdapter {
                 }
             });
         return view;
+    }
+    private class ValueFilter extends Filter {
+
+        //Invoked in a worker thread to filter the data according to the constraint.
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results=new FilterResults();
+            if(constraint!=null && constraint.length()>0){
+                ArrayList<Student> filterList=new ArrayList<Student>();
+                for(int i=0;i<arrayListfilter.size();i++){
+                    if((arrayListfilter.get(i).name.toUpperCase())
+                            .contains(constraint.toString().toUpperCase())) {
+                        Student c = new Student();
+                        c=arrayListfilter.get(i);
+                        filterList.add(c);
+                    }
+                }
+                results.count=filterList.size();
+                results.values=filterList;
+            }else{
+                results.count=arrayListfilter.size();
+                results.values=arrayList;
+            }
+            return results;
+        }
+
+
+        //Invoked in the UI thread to publish the filtering results in the user interface.
+        @SuppressWarnings("unchecked")
+        @Override
+        protected void publishResults(CharSequence constraint,
+                                      FilterResults results) {
+            arrayList=(ArrayList<Student>) results.values;
+            notifyDataSetChanged();
+        }
     }
 }

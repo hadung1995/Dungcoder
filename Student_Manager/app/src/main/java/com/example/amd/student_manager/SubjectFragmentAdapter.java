@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,13 +19,17 @@ import java.util.ArrayList;
  * Created by HP on 12/6/2017.
  */
 
-public class SubjectFragmentAdapter extends BaseAdapter {
+public class SubjectFragmentAdapter extends BaseAdapter implements Filterable {
     Context context;
     ArrayList<Subject> arrayList;
+    ArrayList<Subject> arrayfilter;
+    private ValueFilter valueFilter;
 
     public SubjectFragmentAdapter(Context context, ArrayList<Subject> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
+        this.arrayfilter=arrayList;
+        getFilter();
     }
 
     @Override
@@ -40,6 +46,16 @@ public class SubjectFragmentAdapter extends BaseAdapter {
     public long getItemId(int i) {
         return 0;
     }
+
+    @Override
+    public Filter getFilter() {
+        if(valueFilter==null) {
+
+            valueFilter=new ValueFilter();
+        }
+        return valueFilter;
+    }
+
     public class Viewholder{
         ImageView imgsua,imgxoa;
         TextView subject_name,subject_id,subject_class_id;
@@ -81,5 +97,40 @@ public class SubjectFragmentAdapter extends BaseAdapter {
             }
         });
         return view;
+    }
+    private class ValueFilter extends Filter {
+
+        //Invoked in a worker thread to filter the data according to the constraint.
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results=new FilterResults();
+            if(constraint!=null && constraint.length()>0){
+                ArrayList<Subject> filterList=new ArrayList<Subject>();
+                for(int i=0;i<arrayfilter.size();i++){
+                    if((arrayfilter.get(i).s_name.toUpperCase())
+                            .contains(constraint.toString().toUpperCase())) {
+                        Subject c = new Subject();
+                        c=arrayfilter.get(i);
+                        filterList.add(c);
+                    }
+                }
+                results.count=filterList.size();
+                results.values=filterList;
+            }else{
+                results.count=arrayfilter.size();
+                results.values=arrayfilter;
+            }
+            return results;
+        }
+
+
+        //Invoked in the UI thread to publish the filtering results in the user interface.
+        @SuppressWarnings("unchecked")
+        @Override
+        protected void publishResults(CharSequence constraint,
+                                      FilterResults results) {
+            arrayList=(ArrayList<Subject>) results.values;
+            notifyDataSetChanged();
+        }
     }
 }

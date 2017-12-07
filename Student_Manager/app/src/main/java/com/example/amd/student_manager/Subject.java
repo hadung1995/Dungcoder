@@ -19,4 +19,7 @@ public class Subject {
         this.class_id = class_id;
         this.s_name = s_name;
     }
+
+    public Subject() {
+    }
 }
