@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -152,15 +153,38 @@ public class Database extends SQLiteOpenHelper {
         return arrayList;
 
     }
-    public void Add_place(Place p){
+
+    public void suaPlace(Place std){
         SQLiteDatabase db=this.getWritableDatabase();
-        ContentValues values=new ContentValues();
-        values.put("Name",p.name);
-        values.put("Address",p.address);
-        values.put("Latitude",p.latitude);
-        values.put("Longtitude",p.longtitude);
-        values.put("Description",p.description);
-        db.insert("Place",null,values);
+        String sql="UPDATE Place SET Name=?, Address=?, Latitude=?, Longtitude=?, Description=?, Picture=? WHERE _id=?";
+        SQLiteStatement sqLiteStatement=db.compileStatement(sql);
+        sqLiteStatement.clearBindings();
+        sqLiteStatement.bindString(1,std.name);
+        sqLiteStatement.bindString(2,std.address);
+        sqLiteStatement.bindDouble(3,std.latitude);
+        sqLiteStatement.bindDouble(4, std.longtitude);
+        sqLiteStatement.bindString(5,std.description);
+        sqLiteStatement.bindBlob(6,std.picture);
+        sqLiteStatement.bindDouble(7,std.id);
+        sqLiteStatement.execute();
+    }
+    public void xoaPlace(int id){
+        SQLiteDatabase db=this.getWritableDatabase();
+        db.delete("Place","_id=?",new String[]{id+""});
+    }
+    public void themplace(Place std){
+        SQLiteDatabase db=this.getWritableDatabase();
+        String sql="INSERT INTO Place VALUES(null,?,?,?,?,?,?)";
+        SQLiteStatement sqLiteStatement = db.compileStatement(sql);
+        sqLiteStatement.clearBindings();
+        sqLiteStatement.bindString(1,std.name);
+        sqLiteStatement.bindString(2,std.address);
+        sqLiteStatement.bindDouble(3,std.latitude);
+        sqLiteStatement.bindDouble(4, std.longtitude);
+        sqLiteStatement.bindString(5, std.description);
+        sqLiteStatement.bindBlob(6,std.picture);
+        sqLiteStatement.executeInsert();
+
     }
     }
 

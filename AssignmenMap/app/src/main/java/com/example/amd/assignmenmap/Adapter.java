@@ -3,6 +3,8 @@ package com.example.amd.assignmenmap;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +70,7 @@ public class Adapter extends BaseAdapter implements Filterable {
         if(view==null){
             viewholder =new Viewholder();
             view=inflater.inflate(R.layout.dong_place,null);
+            viewholder.img_place=(ImageView)view.findViewById(R.id.imageviewhinh);
             viewholder.imgmap=(ImageView)view.findViewById(R.id.imageView);
             viewholder.img_sua=(ImageView)view.findViewById(R.id.imageView2);
             viewholder.img_xoa=(ImageView)view.findViewById(R.id.imageView3);
@@ -81,13 +84,18 @@ public class Adapter extends BaseAdapter implements Filterable {
             view.setTag(viewholder);
         }
         viewholder= (Viewholder) view.getTag();
-            final Place p=arrayList.get(i);
+        final Place p=arrayList.get(i);
         viewholder.tv_id.setText(""+p.id);
         viewholder.tv_name.setText(p.name);
         viewholder.tv_address.setText(p.address);
         viewholder.tv_lat.setText(""+p.latitude);
         viewholder.tv_long.setText(""+p.longtitude);
         viewholder.tv_des.setText(p.description);
+
+        byte[] hinhanh = p.picture;
+        Bitmap bitmap= BitmapFactory.decodeByteArray(hinhanh,0,hinhanh.length);
+        viewholder.img_place.setImageBitmap(bitmap);
+
         viewholder.imgmap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,6 +110,19 @@ public class Adapter extends BaseAdapter implements Filterable {
                 intent.putExtra("name",name);
                 context.startActivity(intent);
 
+            }
+        });
+        viewholder.img_xoa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((PlaceActivity)context).db.xoaPlace(p.id);
+                ((PlaceActivity)context).dodulieu();
+            }
+        });
+        viewholder.img_sua.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((PlaceActivity)context).dialog_place_sua(p);
             }
         });
         return view;
